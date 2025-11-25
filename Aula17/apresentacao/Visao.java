@@ -1,6 +1,5 @@
 package apresentacao;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -61,7 +60,6 @@ public class Visao extends JFrame {
 		add(lblProduto);
 		
 		cboProduto.setBounds(20,50,200,20);
-		cboProduto.addItem("Selecione a produto");
 		try {
 			for (Produto objProduto : Produto.getTodos()) {
 				cboProduto.addItem(objProduto.getNome() + "R$" + objProduto.getPreco());
@@ -76,7 +74,6 @@ public class Visao extends JFrame {
 		add(lblCliente);
 		
 		cboCliente.setBounds(20,110, 200,20);
-		cboCliente.addItem("Selecione o Cliente");
 		try {
 			for (Cliente objCliente : Cliente.getTodos()) {
 				cboCliente.addItem(objCliente.getNome());
@@ -101,7 +98,7 @@ public class Visao extends JFrame {
 		add(txtQuantidade);
 		
 		btnGravar.setBounds(20,250,100,20);
-		//btnGravar.addActionListener(new ControladorGravar(cboProduto, cboCliente, txtData, txtQuantidade, lstCompra));
+		btnGravar.addActionListener(new ControladorGravar(cboProduto, cboCliente, txtData, txtQuantidade, lstCompra));
 		add(btnGravar);
 		
 		btnLimpar.setBounds(20,280,100,20);
@@ -111,7 +108,6 @@ public class Visao extends JFrame {
 				cboCliente.setSelectedIndex(0);
 				txtData.setText("");
 				txtQuantidade.setText("");
-				dlmCompra.clear();
 			}
 		});
 		add(btnLimpar);
