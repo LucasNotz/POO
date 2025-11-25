@@ -3,6 +3,7 @@ package apresentacao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -30,14 +31,15 @@ public class ControladorGravar implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (cboCliente.getSelectedIndex() == 0) {
+		
+		/*if (cboCliente.getSelectedIndex() == 0) {
 			JOptionPane.showMessageDialog(null, "Selecione um cliente");
 			return;
 		}
 		if (cboProduto.getSelectedIndex() == 0) {
 			JOptionPane.showMessageDialog(null, "Selecione um produto");
 			return;
-		}
+		}*/
 		if (txtData.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Insira uma data");
 			return;
@@ -47,15 +49,25 @@ public class ControladorGravar implements ActionListener {
 			return;
 		}
 		
+
+
+		
 		try {
 			
 			objCompra = new Compra();
-			objCompra.setObjCliente(Cliente.getTodos().get(cboProduto.getSelectedIndex()-1));
-			objCompra.setObjProduto(Produto.getTodos().get(cboProduto.getSelectedIndex()-1));
+			objCompra.setObjCliente(Cliente.getTodos().get(cboCliente.getSelectedIndex()));
+			objCompra.setObjProduto(Produto.getTodos().get(cboProduto.getSelectedIndex()));
 			objCompra.setData(txtData.getText());
 			objCompra.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
 			objCompra.persistir();
+
 			JOptionPane.showMessageDialog(null, "Tudo certo");
+			
+			((DefaultListModel<String>) lstCompra.getModel()).clear();;
+			for (Compra objCompra : Compra.getTodos()) {
+				((DefaultListModel<String>) lstCompra.getModel()).addElement(objCompra.getData() + " " + objCompra.getObjProduto().getNome() + " " + objCompra.getQuantidade() + " R$" + 
+						(objCompra.getObjProduto().getPreco() * objCompra.getQuantidade()) + " " + objCompra.getObjCliente().getNome());
+			}
 			
 		} catch (Exception error) {
 			error.printStackTrace();
