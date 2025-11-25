@@ -3,7 +3,6 @@ package persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import negocio.Cliente;
 import negocio.Compra;
@@ -52,14 +51,14 @@ public class CompraDAO {
 		
 		if (objCompra.getId() == 0) {
 			objExecucao = database.getObjConexao().prepareStatement(
-					"INSERT INTO CMP_Compra (CMP_idCliente, CMP_idProduto, CMP_data, CMP_quantidade) VALUES (?,?,?,?)"
+					"INSERT INTO CMP_Compra (CMP_idProduto, CMP_idCliente, CMP_data, CMP_quantidade) VALUES (?,?,?,?)"
 					);
 		} else {
 			objExecucao = database.getObjConexao().prepareStatement(
 					"UPDATE CMP_Compra SET CMP_idProduto = ?, CMP_idCliente = ?, CMP_data = ?, CMP_quantidade = ? WHERE CMP_id = ?"
 					);
 		}
-		
+		//Os commandos estavam fora de ordem entao o resultado final estava trocando idproduto por id cliente
 		objExecucao.setInt(1, objCompra.getObjProduto().getId());
 		objExecucao.setInt(2, objCompra.getObjCliente().getId());
 		objExecucao.setString(3, objCompra.getDataParaBanco());
@@ -88,3 +87,4 @@ public class CompraDAO {
 		database.desconectar();
 	}
 }
+
