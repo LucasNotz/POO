@@ -1,0 +1,47 @@
+package negocio;
+
+import java.util.ArrayList;
+
+import persistencia.ClienteDAO;
+
+public class Cliente {
+	private int id = 0;
+	private String nome = "";
+	private double salario = 0;
+	
+	//Constructors 
+	public Cliente() {
+		super();
+	}
+	public Cliente(int id, String nome, double salario) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.salario = salario;
+	}
+	
+	//Access
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public double getSalario() {
+		return salario;
+	}
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+	
+	//Methods
+	public static ArrayList<Cliente> getTodos() throws Exception {
+		return new ClienteDAO().getTodos();
+	}
+}
